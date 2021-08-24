@@ -9,7 +9,7 @@ from Teacher import views as teachUrl
 from Student import views as stdUrl
 from Admin import views as adminUrl
 import test
-import flask_excel as excel
+# import flask_excel as excel
 # from breadcrumb import breadcrumb
 # from flaskwebgui import FlaskUI
 
@@ -41,12 +41,12 @@ def upload_file():
             filename = secure_filename(f.filename)
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename)) 
             FILEPATH = os.path.join(app.config['UPLOAD_FOLDER']) + '/'+filename 
-            print("FILEPATH :", FILEPATH)
+            # print("FILEPATH :", FILEPATH)
             msg = test.insertImage(FILEPATH)
             session['image_ids'] = test.readAllBlobData()
-            print(msg)
-            url = '/teacher/AddQuiz?msg=' + msg
-            return redirect(url) #'file uploaded successfully'
+            # print(msg)
+            # url = '/teacher/AddQuiz?msg=' + msg
+            return redirect(url_for('AddQuiz', msg = msg)) #'file uploaded successfully'
 
 @app.route('/', methods=['GET', 'POST'])
 def Home():  
@@ -139,15 +139,15 @@ def login():
                         cursor.close()
                         conn.close()
                         # print(course_ids , "course_ids")
-                        return redirect('/student/Home')
+                        return redirect(url_for('StudentHome'))
                     elif myresult[4] == 'T':
                         session['username'] , session['role_id'] = cursor.execute("SELECT TEACHER_NAME , TEACHER_ID from TEACHER WHERE USER_ID = ?", (myresult[0],)).fetchone()
                         session['courses'] = cursor.execute("SELECT COURSE_ID , COURSE_NAME from COURSE WHERE TEACHER_ID = ?" , ( session['role_id'],)).fetchall()
                         cursor.close()
                         conn.close()
-                        return redirect('/teacher/Home')
+                        return redirect( url_for("TeacherHome"))
                     else:
-                        return redirect('/admin/Home')
+                        return redirect(url_for('AdminHome'))
                 else:
                     return render_template('login.html', msg='DeActived User. Contact Admin to get Activated.')
             else:
@@ -221,13 +221,13 @@ def sign_page():
 @app.route('/logout', methods=["GET", "POST"])
 def logout():
     session.clear()
-    return redirect('/login_page')
+    return redirect(url_for('login_page'))
 
 # def excelQuizScore():
 #     return excel.make_response_from_array([[1, 2], [3, 4]], "csv")
 
-if __name__ == "__main__":   
+# if __name__ == "__main__":   
     # excel.init_excel(app) 
-    app.run(host='0.0.0.0', port=3000 ) # localhost
+    # app.run(host='0.0.0.0', port=3000 ) # localhost
     # app.run(host='192.168.0.106', port=8081 )  #Router
     # app.run()

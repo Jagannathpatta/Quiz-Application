@@ -743,7 +743,7 @@ def pdfquiz():
             pdf = pdfkit.from_string(rendered , False)
             response = make_response(pdf)
             response.headers['content-Type'] = 'application/pdf'
-            response.headers['content-Disposition'] =  'inline: filename='+quiz_details[3]+'.pdf'
+            response.headers['content-Disposition'] =  'attachment; filename='+quiz_details[3]+'.pdf'
             return response
 
         # except Exception as e:

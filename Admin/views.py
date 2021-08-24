@@ -146,8 +146,8 @@ def AdminUpdateUser():
                 msg = "Some Error : " + str(e) 
                 print(msg)
 
-        url = '/admin/users?msg=' + msg
-        return redirect(url)
+        # url = '/admin/users?msg=' + msg
+        return redirect(url_for('AdminUsers' , msg=msg))
         
 
 def AdminUpdateStudent():
@@ -180,8 +180,8 @@ def AdminUpdateStudent():
             except Exception as e:
                 msg = "Some Error : " + str(e) 
                 print(msg)
-        url = '/admin/students?msg=' + msg
-        return redirect(url)
+        # url = '/admin/students?msg=' + msg
+        return redirect(url_for('AdminStudents' , msg=msg))
 
 def AdminUpdateTeacher():
     page = check_user("/adminSite/adminTeachers.html")
@@ -213,6 +213,6 @@ def AdminUpdateTeacher():
             except Exception as e:
                 msg = "Some Error : " + str(e) 
                 print(msg)
-        url = '/admin/teachers?msg=' + msg
-        return redirect(url)
+        # url = '/admin/teachers?msg=' + msg
+        return redirect(url_for('AdminTeachers' , msg=msg))
         
