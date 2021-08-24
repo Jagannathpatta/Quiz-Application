@@ -707,48 +707,48 @@ def pdfquiz():
     if len(page) > 1:
         return render_template(page[0] , msg = page[1])
     else:
-        # if request.method == 'POST':
-        # try :
-            quiz_details = request.args.get('qz',type = str)
-            quiz_details = [ int(i) if i.strip().isdigit() else i.strip("' '") for i in quiz_details[1:-2].split(',')]
- 
-            # sid = request.args.get('sid', type = int)
-            # score = request.args.get('scr', type = int)
-            # sname = request.args.get('sname', type = str)
-            
-            
-            msg = quiz_details
+        if request.method == 'POST':
+            try :
+                quiz_details = request.args.get('qz',type = str)
+                quiz_details = [ int(i) if i.strip().isdigit() else i.strip("' '") for i in quiz_details[1:-2].split(',')]
+    
+                # sid = request.args.get('sid', type = int)
+                # score = request.args.get('scr', type = int)
+                # sname = request.args.get('sname', type = str)
+                
+                
+                msg = quiz_details
 
-            conn = sqlite3.connect("DataBase/quizAppDataBase.db")
-            cursor = conn.cursor()
-            # quiz_details = cursor.execute("select * from Question q , Options o where q.question_id = o.question_id and  q.quiz_id = ? " , ( quiz[0] , )).fetchall()
-            questions = cursor.execute("select * from Question where quiz_id = ? " , ( quiz_details[0] , )).fetchall()
-            options = cursor.execute(" select * from Options where question_id in ( select question_id from Question where quiz_id = ? ) " , ( quiz_details[0] , )).fetchall()
-            cor_answers = cursor.execute(" select * from Answers where question_id in ( select question_id from Question where quiz_id = ? )  " , ( quiz_details[0] , )).fetchall()
-            # stud_answers =  cursor.execute(" Select qr.student_answer_id , qr.question_id , qr.question_score , qr.Ans_datetime , sa.Answer from Questions_Result qr , Student_Answer sa where qr.student_answer_id = sa.student_answer_id and qr.quiz_id = ? and qr.student_id = ?  " , ( quiz_details[0] , sid  )).fetchall()
-            cursor.close()
-            conn.close()
-            cols = ['question_id' , 'course_id' , 'quiz_id' , 'question_type' , 'question_text' , 'question_marks' , 'question_neg_marks' ]
-            cols2 = [ 'option_id' , 'question_id' , 'option' ]
-            cols3 = ['question_id' , 'option_id' , 'answer']
-            # cols4 = ['student_answer_id' , 'question_id' , 'question_score' , 'Ans_datetime' , 'Answer']
+                conn = sqlite3.connect("DataBase/quizAppDataBase.db")
+                cursor = conn.cursor()
+                # quiz_details = cursor.execute("select * from Question q , Options o where q.question_id = o.question_id and  q.quiz_id = ? " , ( quiz[0] , )).fetchall()
+                questions = cursor.execute("select * from Question where quiz_id = ? " , ( quiz_details[0] , )).fetchall()
+                options = cursor.execute(" select * from Options where question_id in ( select question_id from Question where quiz_id = ? ) " , ( quiz_details[0] , )).fetchall()
+                cor_answers = cursor.execute(" select * from Answers where question_id in ( select question_id from Question where quiz_id = ? )  " , ( quiz_details[0] , )).fetchall()
+                # stud_answers =  cursor.execute(" Select qr.student_answer_id , qr.question_id , qr.question_score , qr.Ans_datetime , sa.Answer from Questions_Result qr , Student_Answer sa where qr.student_answer_id = sa.student_answer_id and qr.quiz_id = ? and qr.student_id = ?  " , ( quiz_details[0] , sid  )).fetchall()
+                cursor.close()
+                conn.close()
+                cols = ['question_id' , 'course_id' , 'quiz_id' , 'question_type' , 'question_text' , 'question_marks' , 'question_neg_marks' ]
+                cols2 = [ 'option_id' , 'question_id' , 'option' ]
+                cols3 = ['question_id' , 'option_id' , 'answer']
+                # cols4 = ['student_answer_id' , 'question_id' , 'question_score' , 'Ans_datetime' , 'Answer']
 
-            questions = pd.DataFrame( questions , columns= cols , index=None )
-            options = pd.DataFrame( options , columns= cols2 , index=None )
-            cor_answers = pd.DataFrame( cor_answers , columns= cols3 , index=None )
-            # stud_answers = pd.DataFrame( stud_answers , columns= cols4 , index=None )
+                questions = pd.DataFrame( questions , columns= cols , index=None )
+                options = pd.DataFrame( options , columns= cols2 , index=None )
+                cor_answers = pd.DataFrame( cor_answers , columns= cols3 , index=None )
+                # stud_answers = pd.DataFrame( stud_answers , columns= cols4 , index=None )
 
 
-            rendered =  render_template(page[0] , quiz = quiz_details , questions = questions , options = options , cor_answers = cor_answers ,msg1 = msg )
-            pdf = pdfkit.from_string(rendered , False)
-            response = make_response(pdf)
-            response.headers['content-Type'] = 'application/pdf'
-            response.headers['content-Disposition'] =  'attachment; filename='+quiz_details[3]+'.pdf'
-            return response
+                rendered =  render_template(page[0] , quiz = quiz_details , questions = questions , options = options , cor_answers = cor_answers ,msg1 = msg )
+                pdf = pdfkit.from_string(rendered , False)
+                response = make_response(pdf)
+                response.headers['content-Type'] = 'application/pdf'
+                response.headers['content-Disposition'] =  'attachment; filename='+quiz_details[3]+'.pdf'
+                return response
 
-        # except Exception as e:
-        #     print('Error==================================' , str(e))
-        #     return render_template('/teacherSite/quiz.html' ,  msg1 = str(e) )
+            except Exception as e:
+                print('Error==================================' , str(e))
+                return render_template('/teacherSite/quiz.html' ,  msg1 = str(e) )
 
 
 # def excelQuizScore():
