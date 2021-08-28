@@ -27,7 +27,12 @@ Generic Quiz WebApp for Assessment of Students performance. Teachers will be cre
     1. Attempt quiz
     1. View results
 
-## Note
+### Tech Stack
+* Python ( Flask Framework )
+* Sqlite DB
+* HTML/Bootstrap/JS
+
+### Note
 The project still needed some small changes so you might get many commented code snippets.  
 This project works totally fine on all kinds of devices, it was hosted on an EC2 instance of AWS.
-You can check this out here : **http://13.233.88.49/**
+* You can check this out here : **http://13.233.88.49/**
