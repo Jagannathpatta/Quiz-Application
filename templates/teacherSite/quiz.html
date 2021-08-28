@@ -16,24 +16,27 @@
     </div>
     <hr>
 
-    <div class="form-group col-sm-12 d-flex"> 
+    <div class="form-group row col-sm-12 "> 
+      <div class="col-sm-9">
         <button type="button" class="btn btn-outline-primary mr-3 " data-toggle="modal" data-target="#modaleditQuiz">
           Edit Quiz Details
         </button>
         <button type="button" class="btn btn-outline-primary mr-3 " data-toggle="modal" data-target="#modalAddQuestion">
             Add Question
         </button>
-        <!-- <button type="button" class="btn btn-primary mr-3 " onclick="">
-          Results
-        </button> -->
-        <!-- <a class="btn btn-primary mr-3 " onclick="" > Results </a> -->
+       
         <a href="/teacher/enrolled?qz={{quiz}}" class="btn btn-primary  mr-3"> Results </a>
+       
+      </div>
+      <div class="col-sm-3">
+        <a class="btn btn-primary float-right " onclick="deleteQuiz( '{{quiz[0]}}' )" > Delete Quiz </a>
         <form  action="/teacher/pdfquiz?qz={{quiz}}" method="POST">
-          <input class="btn btn-primary" type="submit" value="Get Pdf">
+          <input class="btn btn-primary float-right  mr-3 " type="submit" value="Get Pdf">
         </form>
+      </div>
+       
         <!-- <a href="/teacher/pdfquiz?qz={{quiz}}" class="btn btn-primary"> Get Pdf </a> -->
 
-        <a class="btn btn-primary ml-auto " onclick="deleteQuiz( '{{quiz[0]}}' )" > Delete Quiz </a>
 
     </div>
 
