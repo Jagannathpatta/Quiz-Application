@@ -1,6 +1,6 @@
 # Quiz-Application
 
-Generic Quiz WebApp for Assessment of Students performance. Teachers will be creating courses and adding Quizzes to those courses and similarly, questions to each quiz. Students will be enrolling to the courses using the enrollment key given by the respective course creator. Similarly to attempt the individual quiz student had to select the same enrollment image selected by the teacher at the time of creating the quiz. Quiz will contain multiple types of questions which sometimes need to be corrected by the teacher. so correction of answers and evaluating the marks to the students. 
+Generic Quiz WebApp for Assessment of Students performance. Teachers will be creating courses and adding Quizzes to those courses and similarly, questions to each quiz. Students will be enrolling in the courses using the enrollment key given by the respective course creator. Similarly to attempt the individual quiz student had to select the same enrollment image selected by the teacher at the time of creating the quiz. The quiz will contain multiple types of questions that sometimes need to be corrected by the teacher. so correction of answers and evaluating the marks to the students. 
 
 ###### Some Major Incorporations :
 * Images will be used for quiz keys. 
