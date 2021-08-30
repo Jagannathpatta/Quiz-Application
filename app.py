@@ -226,8 +226,8 @@ def logout():
 # def excelQuizScore():
 #     return excel.make_response_from_array([[1, 2], [3, 4]], "csv")
 
-if __name__ == "__main__":   
+# if __name__ == "__main__":   
     # excel.init_excel(app) 
-    app.run(host='0.0.0.0', port=3000 ) # localhost
+    # app.run(host='0.0.0.0', port=3000 ) # localhost
     # app.run(host='192.168.0.106', port=8081 )  #Router
     # app.run()
